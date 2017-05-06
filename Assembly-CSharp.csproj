@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{C3EBFB63-AC86-8D4C-4D94-EF802C038C48}</ProjectGuid>
+    <ProjectGuid>{590255B1-5793-5B67-7D96-6C2552B1CA59}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -46,15 +46,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Agents\Behaviours\HumanBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Agents\Behaviours\ZombieBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Agents\States\HumanState.cs" />
-     <Compile Include="Assets\Scripts\Agents\States\ZombieState.cs" />
+     <Compile Include="Assets\Scripts\Agents\HumanBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Agents\NPC.cs" />
+     <Compile Include="Assets\Scripts\Agents\ZombieBehaviour.cs" />
      <Compile Include="Assets\Scripts\FSM\State.cs" />
      <Compile Include="Assets\Scripts\FSM\StateMachine.cs" />
      <Compile Include="Assets\Scripts\FSM\StatesNPC\StateFlee.cs" />
      <Compile Include="Assets\Scripts\FSM\StatesNPC\StateIdle.cs" />
-     <Compile Include="Assets\Scripts\NPC.cs" />
      <Compile Include="Assets\Scripts\SteeringBehaviours\EvadeThief.cs" />
      <Compile Include="Assets\Scripts\SteeringBehaviours\FleeThief.cs" />
      <Compile Include="Assets\Scripts\SteeringBehaviours\NormalMove.cs" />

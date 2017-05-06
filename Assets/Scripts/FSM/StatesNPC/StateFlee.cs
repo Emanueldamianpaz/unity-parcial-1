@@ -5,20 +5,22 @@ using System.Collections.Generic;
 public class StateFlee : State{
 	
 	private List<GameObject> listTargets = new List<GameObject>();
-	private float speed=5f;
-	private float rotationSpeed=0.3f;
-	private MonoBehaviour mono;
+	private float speed;
+	private float rotationSpeed;
+	private NPC npc;
 	private Vector3 _dirToGo;
 
-	public StateFlee(StateMachine sm, MonoBehaviour mono) : base(sm)
+	public StateFlee(StateMachine sm, NPC npc) : base(sm)
 	{
-		this.mono = mono;
+		this.npc = npc;
+		this.speed = npc.getSpeed();
+		this.rotationSpeed = npc.getRotationSpeed();
 	}
 
 	public override void Awake()
 	{
 		Debug.Log("-- State Flee open");
-		GameObject[] arrayTarget = GameObject.FindGameObjectsWithTag("zombies");
+		GameObject[] arrayTarget = GameObject.FindGameObjectsWithTag(npc.getTypeTarget());
 
 		// Condicion de mover
 		foreach (GameObject target in arrayTarget) {
@@ -34,9 +36,9 @@ public class StateFlee : State{
 		Debug.Log ("Begins flee");
 
 		foreach (GameObject target in listTargets) {
-			_dirToGo = -(target.transform.position - mono.transform.position);
-			mono.transform.forward = Vector3.Lerp (mono.transform.forward, _dirToGo, rotationSpeed * Time.deltaTime);
-			mono.transform.position += mono.transform.forward * speed * Time.deltaTime;
+			_dirToGo = -(target.transform.position - npc.transform.position);
+			npc.transform.forward = Vector3.Lerp (npc.transform.forward, _dirToGo, rotationSpeed * Time.deltaTime);
+			npc.transform.position += npc.transform.forward * speed * Time.deltaTime;
 		}
 	}
 

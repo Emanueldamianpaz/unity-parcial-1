@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StateIdleNPC : HumanState
+public class StateIdle : State
 {
-	public StateIdleNPC(StateMachine sm, HumanBehaviour n) : base(sm, n)
-    {
+	public StateIdle(StateMachine sm, NPC npc) : base(sm)    {
     }
 
     public override void Awake()
