@@ -2,14 +2,8 @@
 using System.Collections;
 
 public class FleeThief : MonoBehaviour {
-
-	public GameObject target;
-	public float speed;
-	public float rotationSpeed;
-
-	private Vector3 _dirToGo;
-
-	void Update()
+	
+	public void Flee(GameObject target, float speed, float rotationSpeed, Vector3 _dirToGo)
 	{
 		_dirToGo = -(target.transform.position - transform.position);
 		transform.forward = Vector3.Lerp (transform.forward, _dirToGo, rotationSpeed * Time.deltaTime);

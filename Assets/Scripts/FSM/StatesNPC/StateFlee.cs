@@ -7,6 +7,7 @@ public class StateFlee : State{
 	private List<GameObject> listTargets = new List<GameObject>();
 	private float speed;
 	private float rotationSpeed;
+
 	private NPC npc;
 	private Vector3 _dirToGo;
 
