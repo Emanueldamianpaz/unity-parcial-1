@@ -45,7 +45,7 @@ public class HumanBehaviour : NPC {
 		foreach (GameObject item in listZombies) {
 			Debug.Log ("ZombieTarget:"+ item);
 
-			if (Vector3.Distance (item.transform.position, base.transform.position) < 15){
+			if (Vector3.Distance (item.transform.position, base.transform.position) < 20){
 				zombieDanger = item;
 			}
 		}
