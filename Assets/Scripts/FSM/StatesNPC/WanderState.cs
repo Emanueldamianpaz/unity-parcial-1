@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WanderState : State {
 
-	private List<GameObject> listTargets = new List<GameObject>();
 	private float speed;
 	private float rotationSpeed;
 
@@ -22,13 +21,7 @@ public class WanderState : State {
 	public override void Awake()
 	{
 		Debug.Log("-- State Wander open");
-		GameObject[] arrayTarget = GameObject.FindGameObjectsWithTag(npc.getTypeTarget());
-
-
-		// Condicion de mover
-		foreach (GameObject target in arrayTarget) {
-			listTargets.Add (target);
-		}
+		Debug.Log ("Target: " + npc.getTypeTarget());
 
 		base.Awake();
 	}
@@ -36,16 +29,13 @@ public class WanderState : State {
 	public override void Execute()
 	{
 		base.Execute ();
-		Debug.Log ("Begins flee");
-
-//		foreach (GameObject target in listTargets) {
-		GameObject target = GetNextTarget();
 
 		speed = npc.getSpeed();
 		rotationSpeed = npc.getRotationSpeed ();
 		Vector3 aux = npc.transform.forward;
+		GameObject target = npc.getTarget ();
+			
 		npc.transform.position += SeekPolice.Seek(npc,target, speed, rotationSpeed,aux );
-//		}
 	}
 
 	public override void Sleep()
@@ -54,9 +44,4 @@ public class WanderState : State {
 		base.Sleep();
 	}
 
-	GameObject GetNextTarget()
-	{
-		int rand = Random.Range(0, listTargets.Count);
-		return listTargets[rand];
-	}
 }
