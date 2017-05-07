@@ -20,9 +20,7 @@ public class WanderState : State
 
     public override void Awake()
     {
-        // Debug.Log("-- State Wander open");
         target = npc.getTarget();
-
         base.Awake();
     }
 
@@ -36,7 +34,6 @@ public class WanderState : State
 
     public override void Sleep()
     {
-        //  Debug.Log("-- State Flee close");
         base.Sleep();
     }
 

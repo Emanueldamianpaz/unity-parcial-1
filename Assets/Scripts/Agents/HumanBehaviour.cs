@@ -1,16 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class HumanBehaviour : NPC {
 
 	private StateMachine _sm;
-	private List<GameObject> listWaypoints = new List<GameObject>();
-	private List<GameObject> listZombies = new List<GameObject>();
+    private List<GameObject> listWaypoints;
+    private List<GameObject> listZombies;
 
-	public HumanBehaviour(){
+
+    public HumanBehaviour(){
 		base.speed = 5;
 		base.rotationSpeed = 0.3f;
+        this.listWaypoints = new List<GameObject>();
+        this.listZombies = new List<GameObject>();
     }
 
     void Start() {
@@ -25,21 +27,22 @@ public class HumanBehaviour : NPC {
 
 
         GameObject[] zombies = GameObject.FindGameObjectsWithTag("zombies");
-        foreach (GameObject zombie in zombies){
-            listZombies.Add(zombie);
+        foreach (GameObject zm in zombies){
+            listZombies.Add(zm);
         }
+        
 
     }
 
     void Update () {
-		_sm.Update ();
+		
 
-		if (base.target == null || (base.getTarget ().transform.position - base.transform.position).magnitude < 2) {
+
+        if (base.target == null || (base.getTarget ().transform.position - base.transform.position).magnitude < 2) {
 			base.target = GetNextTarget();
 		}
-        Debug.Log("UPDATE:"+listZombies[1]);
 		GameObject zombieDanger = null;
-		foreach (var item in listZombies) {
+		foreach (GameObject item in listZombies) {
 			Debug.Log ("ZombieTarget:"+ item);
 
 			if (Vector3.Distance (item.transform.position, base.transform.position) < 15){
@@ -53,12 +56,12 @@ public class HumanBehaviour : NPC {
 			base.target=zombieDanger;
 			_sm.SetState<FleeState>();
         } else {
-			base.target=GetNextTarget ();
-			_sm.SetState<WanderState>();
+		   _sm.SetState<WanderState>();
 		}
 
+        _sm.Update();
 
-	}
+    }
 
 	private GameObject GetNextTarget()
 	{
