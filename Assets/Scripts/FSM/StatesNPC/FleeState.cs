@@ -2,50 +2,41 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class FleeState : State{
-	
-	private List<GameObject> listTargets = new List<GameObject>();
-	private float speed;
-	private float rotationSpeed;
+public class FleeState : State
+{
 
-	private NPC npc;
-	private Vector3 _dirToGo;
+    private float speed;
+    private float rotationSpeed;
 
-	public FleeState(StateMachine sm, NPC npc) : base(sm)
-	{
-		this.npc = npc;
-		this.speed = npc.getSpeed();
-		this.rotationSpeed = npc.getRotationSpeed();
-	}
+    private NPC npc;
+    private GameObject target;
 
-	public override void Awake()
-	{
-		Debug.Log("-- State Flee open");
-		GameObject[] arrayTarget = GameObject.FindGameObjectsWithTag(npc.getTypeTarget());
+    public FleeState(StateMachine sm, NPC npc) : base(sm)
+    {
+        this.npc = npc;
+        this.speed = npc.getSpeed();
+        this.rotationSpeed = npc.getRotationSpeed();
+    }
 
-		// Condicion de mover
-		foreach (GameObject target in arrayTarget) {
-			listTargets.Add (target);
-		}
+    public override void Awake()
+    {
+        // Debug.Log("-- State Flee open");
+        target = npc.getTarget();
 
-		base.Awake();
-	}
+        base.Awake();
+    }
 
-	public override void Execute()
-	{
-		base.Execute ();
-		Debug.Log ("Begins flee");
+    public override void Execute()
+    {
+        base.Execute();
+        Vector3 aux = npc.transform.forward;
 
-		foreach (GameObject target in listTargets) {
-			_dirToGo = -(target.transform.position - npc.transform.position);
-			npc.transform.forward = Vector3.Lerp (npc.transform.forward, _dirToGo, rotationSpeed * Time.deltaTime);
-			npc.transform.position += npc.transform.forward * speed * Time.deltaTime;
-		}
-	}
+        npc.transform.position += FleeThief.Flee(npc, target, speed, rotationSpeed, aux);
+    }
 
-	public override void Sleep()
-	{
-		Debug.Log("-- State Flee close");
-		base.Sleep();
-	}
+    public override void Sleep()
+    {
+        //	Debug.Log("-- State Flee close");
+        base.Sleep();
+    }
 }

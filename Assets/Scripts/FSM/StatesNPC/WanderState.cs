@@ -1,47 +1,43 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class WanderState : State {
+public class WanderState : State
+{
 
-	private float speed;
-	private float rotationSpeed;
+    private float speed;
+    private float rotationSpeed;
 
-	private NPC npc;
-	private Vector3 _dirToGo;
+    private NPC npc;
+    private GameObject target;
 
+    public WanderState(StateMachine sm, NPC npc) : base(sm)
+    {
+        this.npc = npc;
+        this.speed = npc.getSpeed();
+        this.rotationSpeed = npc.getRotationSpeed();
+    }
 
-	public WanderState(StateMachine sm, NPC npc) : base(sm)
-	{
-		this.npc = npc;
-		this.speed = npc.getSpeed();
-		this.rotationSpeed = npc.getRotationSpeed();
-	}
+    public override void Awake()
+    {
+        // Debug.Log("-- State Wander open");
+        target = npc.getTarget();
 
-	public override void Awake()
-	{
-		Debug.Log("-- State Wander open");
-		Debug.Log ("Target: " + npc.getTypeTarget());
+        base.Awake();
+    }
 
-		base.Awake();
-	}
+    public override void Execute()
+    {
+        base.Execute();
+        Vector3 aux = npc.transform.forward;
 
-	public override void Execute()
-	{
-		base.Execute ();
+        npc.transform.position += SeekPolice.Seek(npc, target, speed, rotationSpeed, aux);
+    }
 
-		speed = npc.getSpeed();
-		rotationSpeed = npc.getRotationSpeed ();
-		Vector3 aux = npc.transform.forward;
-		GameObject target = npc.getTarget ();
-			
-		npc.transform.position += SeekPolice.Seek(npc,target, speed, rotationSpeed,aux );
-	}
-
-	public override void Sleep()
-	{
-		Debug.Log("-- State Flee close");
-		base.Sleep();
-	}
+    public override void Sleep()
+    {
+        //  Debug.Log("-- State Flee close");
+        base.Sleep();
+    }
 
 }
