@@ -51,8 +51,9 @@
      <Compile Include="Assets\Scripts\Agents\ZombieBehaviour.cs" />
      <Compile Include="Assets\Scripts\FSM\State.cs" />
      <Compile Include="Assets\Scripts\FSM\StateMachine.cs" />
-     <Compile Include="Assets\Scripts\FSM\StatesNPC\StateFlee.cs" />
+     <Compile Include="Assets\Scripts\FSM\StatesNPC\FleeState.cs" />
      <Compile Include="Assets\Scripts\FSM\StatesNPC\StateIdle.cs" />
+     <Compile Include="Assets\Scripts\FSM\StatesNPC\WanderState.cs" />
      <Compile Include="Assets\Scripts\SteeringBehaviours\EvadeThief.cs" />
      <Compile Include="Assets\Scripts\SteeringBehaviours\FleeThief.cs" />
      <Compile Include="Assets\Scripts\SteeringBehaviours\NormalMove.cs" />

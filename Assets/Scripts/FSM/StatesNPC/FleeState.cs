@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class StateFlee : State{
+public class FleeState : State{
 	
 	private List<GameObject> listTargets = new List<GameObject>();
 	private float speed;
@@ -11,7 +11,7 @@ public class StateFlee : State{
 	private NPC npc;
 	private Vector3 _dirToGo;
 
-	public StateFlee(StateMachine sm, NPC npc) : base(sm)
+	public FleeState(StateMachine sm, NPC npc) : base(sm)
 	{
 		this.npc = npc;
 		this.speed = npc.getSpeed();

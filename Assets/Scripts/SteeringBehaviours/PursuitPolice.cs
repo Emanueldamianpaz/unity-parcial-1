@@ -18,7 +18,7 @@ public class PursuitPolice : MonoBehaviour {
         if(target)
 		    _predictedPosition = target.transform.position + target.transform.forward * target.speed * timeOfPrediction;
         else
-		    _predictedPosition = target2.transform.position + target2.transform.forward * target2.speed * timeOfPrediction;
+		  //  _predictedPosition = target2.transform.position + target2.transform.forward * target2.speed * timeOfPrediction;
 
         //Hacemos que se rote hacia esa direccion
         transform.forward = Vector3.Lerp (transform.forward, _predictedPosition - transform.position, rotationSpeed * Time.deltaTime);

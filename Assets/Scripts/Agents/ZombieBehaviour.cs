@@ -15,7 +15,7 @@ public class ZombieBehaviour : NPC {
 	void Start () {
 		_sm = new StateMachine();
 		_sm.AddState(new StateIdle(_sm, (this)));
-		_sm.AddState(new StateFlee(_sm, this));
+		_sm.AddState(new FleeState(_sm, this));
 
 	}
 
@@ -24,7 +24,7 @@ public class ZombieBehaviour : NPC {
 		if (Input.GetKeyDown(KeyCode.Q))
 			_sm.SetState<StateIdle>();
 		else if (Input.GetKeyDown(KeyCode.W))
-			_sm.SetState<StateFlee>();
+			_sm.SetState<FleeState>();
 
 	}
 
