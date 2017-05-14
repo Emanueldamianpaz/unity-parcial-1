@@ -7,13 +7,23 @@ public class NPC : MonoBehaviour {
 	protected float rotationSpeed;
 	protected string typeTarget;
 	protected GameObject target;
+    protected float pushedTime;
 
-
-	public float getSpeed(){
+    public float getSpeed(){
 		return speed;	
 	}
 
-	public float getRotationSpeed(){
+    public float getPushedTime()
+    {
+        return pushedTime;
+    }
+
+    public void setPushedTime(float pushedTime)
+    {
+        this.pushedTime = pushedTime;
+    }
+
+    public float getRotationSpeed(){
 		return rotationSpeed;	
 	}
 

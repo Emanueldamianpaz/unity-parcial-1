@@ -13,6 +13,7 @@ public class ZombieBehaviour : NPC {
     {
         base.speed = 7;
         base.rotationSpeed = 0.3f;
+        base.pushedTime = 2;
         this.listHumans = new List<GameObject>();
     }
 
@@ -21,6 +22,7 @@ public class ZombieBehaviour : NPC {
         _sm = new StateMachine();
         _sm.AddState(new FleeState(_sm, this));
         _sm.AddState(new WanderState(_sm, this));
+        _sm.AddState(new PushState(_sm, this));
 
         GameObject[] humans = GameObject.FindGameObjectsWithTag("humans");
         foreach (GameObject human in humans)
@@ -40,29 +42,23 @@ public class ZombieBehaviour : NPC {
             _sm.SetState<WanderState>();
         }
 
-        /* 
-         * Punto extra
-         *    GameObject zombieDanger = null;
-          foreach (GameObject item in listHumans)
-          {
-              if (Vector3.Distance(item.transform.position, base.transform.position) < 15)
-              {
-                  zombieDanger = item;
-              }
-          }
+     /*   foreach (GameObject item in listHumans)
+        {
+            //double r = Random.Range(0, 1);
+            double r = 0.2;
+            if (r <= 0.5 && (base.getTarget().transform.position - item.transform.position).magnitude < 4)
+            {
+                _sm.SetState<PushState>();
+                target = null;
+                break;
 
-          // Setting states
+            }
+        }
+        */
 
-          if (zombieDanger != null)
-          {
-              base.target = zombieDanger;
-              _sm.SetState<FleeState>();
-          }
-          else
-          {
-              _sm.SetState<WanderState>();
-          }
-            */
+
+
+
         _sm.Update();
 
     }
@@ -74,6 +70,8 @@ public class ZombieBehaviour : NPC {
             Instantiate(this, target.transform.position, Quaternion.identity);
             listHumans.Remove(target);
             Destroy(target.gameObject);
+
+   
         }
 
         int rand = Random.Range(0, listHumans.Count);
