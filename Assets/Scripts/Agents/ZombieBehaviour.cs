@@ -7,14 +7,15 @@ public class ZombieBehaviour : NPC {
 
     private StateMachine _sm;
     private List<GameObject> listHumans;
-
+    private boolean dangerZombie;
 
     public ZombieBehaviour()
     {
         base.speed = 7;
         base.rotationSpeed = 0.3f;
-        base.pushedTime = 2;
+        base.pushedTime = 0;
         this.listHumans = new List<GameObject>();
+        this.dangerZombie=false;
     }
 
     void Start()
@@ -42,19 +43,19 @@ public class ZombieBehaviour : NPC {
             _sm.SetState<WanderState>();
         }
 
-     /*   foreach (GameObject item in listHumans)
-        {
-            //double r = Random.Range(0, 1);
-            double r = 0.2;
-            if (r <= 0.5 && (base.getTarget().transform.position - item.transform.position).magnitude < 4)
-            {
-                _sm.SetState<PushState>();
-                target = null;
-                break;
 
+        foreach (GameObject item in listHumans)
+        {
+            if(item.transform.position - base.target.transform.position).magnitude <= 10){
+                dangerZombie=true;
             }
         }
-        */
+       
+        if(dangerZombie && Random.Range(0, 100) >= 50){
+            _sm.SetState<PushState>();
+        }
+
+
 
 
 
