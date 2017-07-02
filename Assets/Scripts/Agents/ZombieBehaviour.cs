@@ -7,7 +7,7 @@ public class ZombieBehaviour : NPC {
 
     private StateMachine _sm;
     private List<GameObject> listHumans;
-    private boolean dangerZombie;
+    private bool dangerZombie;
 
     public ZombieBehaviour()
     {
@@ -21,7 +21,6 @@ public class ZombieBehaviour : NPC {
     void Start()
     {
         _sm = new StateMachine();
-        _sm.AddState(new FleeState(_sm, this));
         _sm.AddState(new WanderState(_sm, this));
         _sm.AddState(new PushState(_sm, this));
 
@@ -36,29 +35,21 @@ public class ZombieBehaviour : NPC {
     {
 
 
+		if (base.target == null || (base.getTarget ().transform.position - base.transform.position).magnitude <= 2) {
+			
+			base.target = GetNextTarget ();
+			_sm.SetState<WanderState> ();
+		} else {
+			Debug.Log(base.target);
+			foreach (GameObject item in listHumans){
+				if((base.target.transform.position - item.transform.position).magnitude <= 10){
+					Debug.Log ("siempre entro aca?");
+					dangerZombie=true;
+				}
+			}
 
-        if (base.target == null || (base.getTarget().transform.position - base.transform.position).magnitude <= 2)
-        {
-            base.target = GetNextTarget();
-            _sm.SetState<WanderState>();
-        }
-
-
-        foreach (GameObject item in listHumans)
-        {
-            if(item.transform.position - base.target.transform.position).magnitude <= 10){
-                dangerZombie=true;
-            }
-        }
-       
-        if(dangerZombie && Random.Range(0, 100) >= 50){
-            _sm.SetState<PushState>();
-        }
-
-
-
-
-
+		
+		};
 
         _sm.Update();
 
@@ -66,13 +57,15 @@ public class ZombieBehaviour : NPC {
 
 
     private GameObject GetNextTarget() { 
-        if (target)
-        {
+
+	
+		if(dangerZombie && (Random.Range(0, 100)) >= 50){
+			_sm.SetState<PushState>();
+			base.pushedTime = 0; 
+		}else{
             Instantiate(this, target.transform.position, Quaternion.identity);
             listHumans.Remove(target);
             Destroy(target.gameObject);
-
-   
         }
 
         int rand = Random.Range(0, listHumans.Count);

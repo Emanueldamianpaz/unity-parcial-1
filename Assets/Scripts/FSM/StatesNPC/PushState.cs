@@ -6,7 +6,6 @@ public class PushState : State
 {
 
     private float speed;
-    private float pushedTime;
     private NPC npc;
     private GameObject target;
 
@@ -14,7 +13,6 @@ public class PushState : State
     {
         this.npc = npc;
         this.speed = npc.getSpeed();
-        this.pushedTime = npc.getPushedTime();
     }
 
     public override void Awake()
@@ -28,10 +26,11 @@ public class PushState : State
     public override void Execute()
     {
         base.Execute();
-        pushedTime -= Time.deltaTime;
-        if(pushedTime <=0){
-                npc.GetComponent<Rigidbody>().AddForce(PushNpc.Push(speed));
-                pushedTime = 5;
+        npc.setPushedTime(npc.getPushedTime()-Time.deltaTime);
+        if(npc.getPushedTime() <= 0){
+			Debug.Log("entre en el pushed 0");
+                npc.GetComponent<Rigidbody>().AddForce(Vector3.forward * - 2);
+                npc.setPushedTime(1);
 
         }
 
@@ -42,6 +41,7 @@ public class PushState : State
     {
         //	Debug.Log("-- State Push close");
         base.Sleep();
-        pushedTime = 0;
+		npc.setPushedTime(0);
+
     }
 }

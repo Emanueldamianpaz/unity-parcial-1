@@ -92,7 +92,6 @@
     <Compile Include="Assets\Scripts\FSM\StatesNPC\WanderState.cs" />
     <Compile Include="Assets\Scripts\SteeringBehaviours\FleeThief.cs" />
     <Compile Include="Assets\Scripts\SteeringBehaviours\NormalMove.cs" />
-    <Compile Include="Assets\Scripts\SteeringBehaviours\PushNpc.cs" />
     <Compile Include="Assets\Scripts\SteeringBehaviours\SeekPolice.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
