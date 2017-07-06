@@ -36,20 +36,11 @@ public class ZombieBehaviour : NPC {
 
 
 		if (base.target == null || (base.getTarget ().transform.position - base.transform.position).magnitude <= 2) {
-			
 			base.target = GetNextTarget ();
 			_sm.SetState<WanderState> ();
-		} else {
-			Debug.Log(base.target);
-			foreach (GameObject item in listHumans){
-				if((base.target.transform.position - item.transform.position).magnitude <= 10){
-					Debug.Log ("siempre entro aca?");
-					dangerZombie=true;
-				}
-			}
+		} 
 
 		
-		};
 
         _sm.Update();
 
@@ -58,15 +49,25 @@ public class ZombieBehaviour : NPC {
 
     private GameObject GetNextTarget() { 
 
-	
-		if(dangerZombie && (Random.Range(0, 100)) >= 50){
-			_sm.SetState<PushState>();
-			base.pushedTime = 0; 
-		}else{
-            Instantiate(this, target.transform.position, Quaternion.identity);
+	   if(target){
+
+            List<GameObject> listHumansOther = listHumans ;
+            listHumansOther.Remove(target);
+
+            foreach (GameObject item in listHumansOther){
+                var distance=(target.transform.position - item.transform.position);
+                if(distance.magnitude <= 20  && (Random.Range(0, 100)) >= 50){
+                        _sm.SetState<PushState>();
+                        base.pushedTime = 0; 
+                    };
+                 };
+                  
+        
+	        Instantiate(this, target.transform.position, Quaternion.identity);
             listHumans.Remove(target);
             Destroy(target.gameObject);
-        }
+        };
+        
 
         int rand = Random.Range(0, listHumans.Count);
         return listHumans[rand];

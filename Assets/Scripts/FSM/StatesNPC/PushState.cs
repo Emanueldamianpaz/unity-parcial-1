@@ -28,8 +28,7 @@ public class PushState : State
         base.Execute();
         npc.setPushedTime(npc.getPushedTime()-Time.deltaTime);
         if(npc.getPushedTime() <= 0){
-			Debug.Log("entre en el pushed 0");
-                npc.GetComponent<Rigidbody>().AddForce(Vector3.forward * - 2);
+			    npc.GetComponent<Rigidbody>().AddForce(Vector3.forward * - 10);
                 npc.setPushedTime(1);
 
         }
